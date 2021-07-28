@@ -1,0 +1,41 @@
+
+<h2>List of Products</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let product of products">
+            <td>{{product.productName}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.quantity}}</td>
+            <td>
+                <button (click)="updateProducts(product.product_id)" class="btn btn-outline-info">Update</button>
+
+                <button 
+                    style="margin-left: 10px;"
+                    class="btn btn-outline-danger"
+                    mwlConfirmationPopover
+                    [popoverTitle]="popoverTitle"
+                    [popoverMessage]="popoverMessage"
+                    [confirmText]="confirmText"
+                    [cancelText]="cancelText"
+                    [placement]="placement"
+                    (confirm)="deleteProducts(product.product_id)"
+                    (cancel)="cancelClicked = true"
+                    confirmButtonType="danger"
+                    cancelButtonType="outline-secondary"
+                    (click)="confirmClicked = false; cancelClicked = false"
+                    [appendToBody]="true" >Delete</button>
+
+                <button (click)="viewProducts(product.product_id)" class="btn btn-outline-success" style="margin-left: 10px;">View</button> 
+            </td>
+        </tr>
+    </tbody>
+</table>

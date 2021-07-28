@@ -1,0 +1,41 @@
+
+<div class="col-md-4 offset-md-3">
+    <h2 style="text-align: center" >Update Product</h2>
+    <form #updateProduct = "ngForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+            <label>Product Name</label>
+            <div>
+                <input type="text" name="productName" id="productName" 
+                    [(ngModel)]="product.productName" class="form-control" 
+                    required #productName = "ngModel" [class.is-invalid] = "productName.invalid && productName.untouched" />
+            </div>
+            <small class="text-danger" [class.d-none]="productName.valid || productName.touched">Product name is required</small>
+        </div>
+
+        <div class="form-group">
+            <label>Price</label>
+            <div>
+            <input type="text" id="price" name="price" 
+                [(ngModel)]="product.price" class="form-control" 
+                required #price = "ngModel" [class.is-valid] = "price.invalid && price.untouched"/>
+            </div>
+            <small class="text-danger" [class.d-none] = "price.valid || price.touched">Price is required</small>
+        </div>
+
+        <div class="form-group">
+            <label>Quantity</label>
+            <div>
+                <input type="text" id="quantity" name="quantity"  
+                [(ngModel)]="product.quantity" class="form-control"
+                required #quantity = "ngModel" [class.is-valid]="quantity.invalid && quantity.untouched"/>
+            </div>
+            <small class="text-danger" [class.d-none]="quantity.valid || quantity.touched" >Quantity is required</small>
+        </div>
+        <br>
+        <div class="form-group">
+            <button [disabled] = "updateProduct.form.invalid" type="submit" 
+            class="btn btn-outline-success" style="font-weight: bold;" >Update Product</button>
+        </div>
+    </form>
+</div>

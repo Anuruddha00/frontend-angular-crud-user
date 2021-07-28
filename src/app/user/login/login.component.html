@@ -1,0 +1,49 @@
+
+
+<body>
+<div class="col-md-8 offset-md-4">
+    <h4 style="margin-left: 60px;">User Login</h4>
+    <br>
+        <form #loginform="ngForm" (ngSubmit)="logUser()">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Email:</label>
+                
+                    <div class="col-sm-5">
+                        <input type="email" class="form-control" name="email" placeholder="Enter email" [(ngModel)]="user.email"
+                        required pattern = "^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" #email = "ngModel" [class.is-invalid] = "email.invalid && email.touched"
+                        >
+                    </div>
+                    
+                    <div *ngIf = "email.errors && (email.invalid && email.touched)">
+                        <small class="text-danger" *ngIf = "email.errors.required">Email field is required</small>
+                        <small class="text-danger" *ngIf = "email.errors.pattern">Enter a valid email</small>
+                    <br>
+                    </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">Password:</label>
+                <br>
+                    <div class="col-sm-5">
+                        <input type="password" class="form-control" name="password" placeholder="Enter password" [(ngModel)]="user.password"
+                        required #password = "ngModel" [class.is-invalid] = "password.invalid && password.touched"
+                        >
+                    </div>
+                    <small class="text-danger" [class.d-none] = "password.valid || password.untouched">Password is required</small>
+                </div>
+            <small class="text-danger">{{message}}</small>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-5">
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="remember"> Remember me</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button [disabled] = "loginform.form.invalid" type="submit" class="btn btn-success" style="margin-left: 20px; padding-left: 80px; padding-right: 80px;">Login</button>
+                </div>
+            </div>
+        </form>
+    <small style="margin-left: 80px;" (click) = "navRegistration()">New user? <a style="cursor: pointer; color: blue;">Sign Up</a> </small>
+</div>
+</body>
