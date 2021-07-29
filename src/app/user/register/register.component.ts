@@ -13,7 +13,6 @@ export class RegisterComponent implements OnInit {
   user = new User();
   message = '';
 
-
   constructor(private service: ResgisterService, private router: Router) { }
 
   ngOnInit() {
@@ -29,7 +28,7 @@ export class RegisterComponent implements OnInit {
         if (statusCode == 200 || statusCode == 201) {
           this.router.navigate(['/login'])
         }
-        else if (statusCode == 500) {
+        else if (statusCode == 409) {
           alert("User already exist");
         }
 
