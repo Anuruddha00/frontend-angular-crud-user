@@ -13,25 +13,30 @@ export class LoginComponent implements OnInit {
   user = new User();
   message = '';
 
-  constructor(private service : ResgisterService, private router : Router) { }
+  constructor(private service: ResgisterService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  logUser(){
+  logUser() {
     this.service.logInUserFromRemote(this.user).subscribe(
-      data=>{
-                console.log("response received");
-                this.router.navigate(['/products'])
-            },
-      error=>{
-                console.log("exception occured");
-                this.message = "Bad Credentials"
-            }
+      data => {
+
+        const statusCode = data.statusCode;
+
+        if (statusCode == 200 || statusCode == 201) {
+          this.router.navigate(['/products'])
+        }
+        else if (statusCode == 406) {
+          alert("Invalid User")
+        }
+
+        console.log({data})
+      }
     )
   }
-  navRegistration(){
-    this.router.navigate(['/register']) 
+  navRegistration() {
+    this.router.navigate(['/register'])
   }
 }
 
