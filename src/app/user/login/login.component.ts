@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
         if (statusCode == 200 || statusCode == 201) {
           this.router.navigate(['/products'])
         }
-        else if (statusCode == 406) {
+        else if (statusCode == 401) {
           alert("Invalid User")
         }
 
