@@ -10,39 +10,42 @@ import { User } from '../user';
 })
 export class RegisterComponent implements OnInit {
 
-  placements = ['top', 'left', 'right', 'bottom'];
-  popoverTitle = 'Error ?' ;
-  cancelText = 'Ok <i class="fas fa-times"></i>';
-  confirmClicked = false;
-  cancelClicked = false;
-
   user = new User();
   message = '';
-  private userexist : boolean=false;
 
-  constructor(private service : ResgisterService, private router: Router) { }
+
+  constructor(private service: ResgisterService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  regUser(){
-    console.log('USER_ : '+JSON.stringify(this.user));
+  regUser() {
+    console.log('USER_ : ' + JSON.stringify(this.user));
     this.service.registerUserFromRemote(this.user).subscribe(
-      data=>{
-                console.log("response received");
-                this.userexist=false;
-                this.router.navigate(['/login'])
-            },
-      error=>{
-                console.log("exception occured");
-                this.userexist=true;
-                this.message = error.error;
-                
-            }
+      data => {
+
+        const statusCode = data.statusCode;
+
+        if (statusCode == 200 || statusCode == 201) {
+          this.router.navigate(['/login'])
+        }
+        else if (statusCode == 500) {
+          alert("User already exist");
+        }
+
+        // (statusCode == 200 || statusCode == 201)?  
+        //   this.router.navigate(['/login']):
+        //   (statusCode == 500)?
+        //    alert("User already exist"):
+        //    console.log("error");
+
+        console.log({ data });
+        console.log(data);
+      }
     )
   }
 
-  navLogin(){
+  navLogin() {
     this.router.navigate(['/login'])
   }
 }
